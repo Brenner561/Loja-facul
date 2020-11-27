@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produtos</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Produtos</h1>
+    
+    <form action="/create" method="POST">
+      <input name="title" placeholder="produto">
+      <input name="price" placeholder="preço">
+      <button type="submit">
+        <img src="{{ url_for('static', filename='images/icons/add.png') }}">
+      </button>
+    </form>
+    <hr>
+    <ul>
+      {% for produ in produtos %}
+        <li>
+          <form action="/update/{{ loop.index0 }}" method="POST">
+            <input name="title" value="{{ produ['title'] }}">
+            <input name="price" value="{{ produ['price'] }}">
+            <button type="submit">
+              <img src="{{ url_for('static', filename='images/icons/editar.png') }}">
+            </button>
+          </form>
+          
+          <a href="/delete/{{ loop.index0 }}">
+            <img src="{{ url_for('static', filename='images/icons/del.png') }}">
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>
